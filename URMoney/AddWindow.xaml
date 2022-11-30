@@ -1,0 +1,54 @@
+﻿<Window x:Class="URMoney.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:URMoney"
+        mc:Ignorable="d"
+        Title="Настройка операции" Height="300" Width="500" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="MinWidth" Value="90" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="MinWidth" Value="60" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="Margin" Value="8" />
+        </Style>
+    </Window.Resources>
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Content="Категория"/>
+        <Label Content="Человек" Grid.Row="1"/>
+        <Label Content="Транзакция" Grid.Row="2"/>
+        <Label Content="Валюта" Grid.Row="3"/>
+        <Label Content="Дата" Grid.Row="4"/>
+        <Label Content="Примечание" Grid.Row="5"/>
+        <ComboBox x:Name="categoryBox" SelectedItem=""  Grid.Column="6"/>
+        <ComboBox x:Name="peopleBox" Grid.Row="1" Grid.Column="1"/>
+        <ComboBox x:Name="transactionBox" SelectedItem="" Grid.Row="2" Grid.Column="1"/>
+        <ComboBox x:Name="valuteBox" Grid.Row="3" Grid.Column="1"/>
+        <TextBox x:Name="dateBox" Grid.Row="4" Grid.Column="1"/>
+        <TextBox x:Name="noteBox" Grid.Row="5" Grid.Column="1"/>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="6" Grid.Column="1" >
+            <Button IsDefault="True" Click="Accept_Click">OK</Button>
+            <Button IsCancel="True">Отмена</Button>
+        </StackPanel>
+    </Grid>
+</Window>

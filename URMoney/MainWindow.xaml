@@ -366,11 +366,11 @@
             <DataGrid x:Name="table" Grid.Row="1" Grid.Column="1">
             </DataGrid>
             <StackPanel Style="{DynamicResource Panel_But_Expenses}" Grid.Row="1" Grid.Column="2">
-                <Button  Style="{DynamicResource But_Expenses}" Content="Добавить">
+                <Button  Style="{DynamicResource But_Expenses}" Content="Добавить" Click="Add_Click">
                 </Button>
-                <Button  Style="{DynamicResource But_Expenses}" Content="Изменить">
+                <Button  Style="{DynamicResource But_Expenses}" Content="Изменить" Click="Edit_Click">
                 </Button>
-                <Button Style="{DynamicResource But_Expenses}"  Content="Удалить">
+                <Button Style="{DynamicResource But_Expenses}"  Content="Удалить" Click="Delete_Click">
                 </Button>
                 <Button Style="{DynamicResource But_Expenses}" Width="35" Height="35" Background="White">
                 </Button>
