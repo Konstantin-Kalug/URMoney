@@ -363,7 +363,17 @@
             </Label>
             <Label x:Name="income" Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Таблица Доходов" Visibility="Hidden">
             </Label>
-            <DataGrid x:Name="table" Grid.Row="1" Grid.Column="1">
+            <DataGrid x:Name="table" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Column1}" Width="*"/>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding Path=Column2}" Width="*"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Path=Column3}" Width="*"/>
+                    <DataGridTextColumn Header="Человек" Binding="{Binding Path=Column4}" Width="*"/>
+                    <DataGridTextColumn Header="Сумма" Binding="{Binding Path=Column5}" Width="*"/>
+                    <DataGridTextColumn Header="Валюта" Binding="{Binding Path=Column6}" Width="*"/>
+                    <DataGridTextColumn Header="Дата" Binding="{Binding Path=Column7}" Width="*"/>
+                    <DataGridTextColumn Header="Примечание" Binding="{Binding Path=Column8}" Width="*"/>
+                </DataGrid.Columns>
             </DataGrid>
             <StackPanel Style="{DynamicResource Panel_But_Expenses}" Grid.Row="1" Grid.Column="2">
                 <Button  Style="{DynamicResource But_Expenses}" Content="Добавить" Click="Add_Click">
