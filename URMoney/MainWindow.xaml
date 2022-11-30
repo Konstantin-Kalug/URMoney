@@ -150,7 +150,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
         </Style>
         <Style x:Key="But_Center" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
@@ -326,7 +325,7 @@
                 </Button>
                 <Button  Style="{DynamicResource But_Center}" Content="Расходы" Click="Button_Click_1">
                 </Button>
-                <Button  Style="{DynamicResource But_Center}" Content="Визуализация">
+                <Button x:Name="visualisationButton" Style="{DynamicResource But_Center}" Content="Визуализация" Click="visualisationButton_Click">
                 </Button>
             </StackPanel>
             <!-- Стак панель для кнопок по центру 2-->
@@ -387,6 +386,10 @@
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="0" Content="$" HorizontalAlignment="Left" Margin="0" Height="25" Width="25" FontSize="18"/>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="2" Content="->" Background="#908C30" VerticalAlignment="Center" Width="25" Height="25" Click="Button_Click_3"/>
+        </Grid>
+        <!-- Окно для визуализации -->
+        <Grid x:Name="VisualGrid" Background="Gray" Visibility="Hidden">
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="2" Content="->" Background="#908C30" VerticalAlignment="Center" Width="25" Height="25" Click="Button_Click_3"/>
         </Grid>
     </Grid>

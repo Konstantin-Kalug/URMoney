@@ -178,6 +178,13 @@ namespace URMoney
             MainFrame.Visibility = Visibility.Visible;
             FrameTables.Visibility = Visibility.Hidden;
             CentralBut.Visibility = Visibility.Hidden;
+            VisualGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void visualisationButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Visibility = Visibility.Hidden;
+            VisualGrid.Visibility = Visibility.Visible;
         }
     }
 }
