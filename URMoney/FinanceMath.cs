@@ -54,22 +54,34 @@ namespace URMoney
             }
             return output;
         }
+        // financeCredit вычисляет ежемесячные платежи и их сумму
         static public List<double> financeCredit(double total, double percent, int numberOfPeriods, bool dif)
         {
-            List<double> output;
+            List<double> output = new List<double> { total };
             try
             {
-                output = new List<double>();
-                if (!dif)
+                if (total < 0 || percent < 0 || numberOfPeriods < 0)
+                    throw new Exception();
+                double remains = total;
+                for (int i = 0; i < numberOfPeriods; i++)
                 {
+                    // вычисление аннуитетного платежа
+                    if (!dif)
+                    {
+                        output.Add(Math.Round(total * percent / 100 / 12 / (1 - Math.Pow(1 + percent / 100 / 12, -numberOfPeriods)), 2));
+                    }
+                    else
+                    // вычисление дифференцированного платежа
+                    {
+                        output.Add(Math.Round(total / numberOfPeriods + remains * percent / 100 / 12, 2));
+                        remains -= output[output.Count - 1];
+                    }
                 }
-                else
-                {
-                }
+                output.Add(output.Sum() - total);
             }
             catch
             {
-                output = new List<double>() { -1 };
+                output.Add(-1);
             }
             return output;
         }
