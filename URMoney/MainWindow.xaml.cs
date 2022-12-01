@@ -93,8 +93,8 @@ namespace URMoney
         }
         // выводим диаграммы
         private void InitializeVisual()
-        { 
-            // но тут ничего нет, сложные запросы
+        {
+            // SELECT total FROM operations INNER JOIN transactions ON transactionid = id INNER JOIN categories ON categoryid = id INNER JOIN types ON typeid = id WHERE type.title = "доходы"
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
