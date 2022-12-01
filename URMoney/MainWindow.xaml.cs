@@ -57,9 +57,19 @@ namespace URMoney
             {
                 // вставить дефолтные категории
             }
-            if (db.Valutes.ToArray().Length == 0)
+            try
             {
-                // вставить работу с request
+                Dictionary<string, string[]> valutes = Requests.getValutes();
+                db.Database.ExecuteSqlRaw("DELETE FROM Valutes");
+                foreach (var elem in valutes)
+                {
+                    Valute Valute = new Valute { Title = elem.Value[0], CharCode=elem.Key, Сource = Convert.ToDecimal(elem.Value[1]) };
+                    db.Valutes.Add(Valute);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Невозможно обновить курс валют! Пожалуйста, проверьте Интернет-соединение");
             }
             db.SaveChanges();
         }

@@ -53,7 +53,7 @@ namespace URMoney
                     case 1: valutes.Add(elem, new string[2] { "", "" }); code = elem; i++; break;
                     case 2: nominal = Convert.ToInt32(elem); i++; break;
                     case 3: valutes[code][0] = elem; i++; break;
-                    case 4: valutes[code][1] = Convert.ToString(Math.Round(Convert.ToDouble(elem) / nominal, 4)); i = 1; break;
+                    case 4: valutes[code][1] = Convert.ToString(Math.Round(Convert.ToDecimal(elem) / nominal, 2)); i = 1; break;
                 }
             }
             // добавляем в словарь Российский рубль
