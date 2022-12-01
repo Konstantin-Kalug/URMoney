@@ -26,26 +26,31 @@ namespace URMoney
             return output;
         }
         // financeDeposit расчитывает сумму, которая выйдет после закрытия вклада
-        static public double financeDeposit(double total, double percent, int term, int capitalizationPeriod, bool isReInvest)
+        static public List<double> financeDeposit(double total, double percent, int term, int capitalizationPeriod, bool isReInvest)
         {
-            double output;
+            List<double> output = new List<double>() { total };
             try
             {
-                // проверка на наличие капитализации
-                if (isReInvest)
+                if (total < 0 || percent < 0 || term < 0 || capitalizationPeriod < 0)
+                    throw new Exception();
+                for (int i = 0; i < term; i++)
                 {
-                    // вычисление
-                    output = Math.Round(total * Math.Pow(1 + (percent / capitalizationPeriod / 100), Math.Ceiling((double)term / (double)capitalizationPeriod)), 2);
-                }
-                else
-                {
-                    output = Math.Round(total + total * percent / capitalizationPeriod / 100 * Math.Ceiling((double)term / (double)capitalizationPeriod), 2);
+                    // проверка на наличие капитализации
+                    if (isReInvest)
+                    {
+                        // вычисление
+                        output.Add(Math.Round(output[output.Count - 1] + output[output.Count - 1] * percent / 100 / capitalizationPeriod, 2));
+                    }
+                    else
+                    {
+                        output.Add(Math.Round(output[output.Count - 1] + output[0] * percent / 100 / capitalizationPeriod, 2));
+                    }
                 }
             }
-            catch
+            catch (Exception)
             {
                 // в случае, если возникла ошибка, мы возвращаем -1, указывая смежным модулям о возникших неполадках
-                output = -1;
+                output.Add(-1);
             }
             return output;
         }
