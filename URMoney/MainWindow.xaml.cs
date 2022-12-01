@@ -67,12 +67,13 @@ namespace URMoney
                     db.Valutes.Add(Valute);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Невозможно обновить курс валют! Пожалуйста, проверьте Интернет-соединение");
             }
             db.SaveChanges();
         }
+        // создаем словарь id - title
         private List<Dictionary<int, string>> InitializeKeysBD()
         {
             List<Dictionary<int, string>> dicts = new List<Dictionary<int, string>>();
@@ -89,6 +90,11 @@ namespace URMoney
             foreach (var elem in db.Valutes.ToArray())
                 dicts[3].Add(elem.Id, elem.Title);
             return dicts;
+        }
+        // выводим диаграммы
+        private void InitializeVisual()
+        { 
+            // но тут ничего нет, сложные запросы
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
@@ -195,6 +201,7 @@ namespace URMoney
         {
             MainFrame.Visibility = Visibility.Hidden;
             VisualGrid.Visibility = Visibility.Visible;
+            InitializeVisual();
         }
     }
 }
