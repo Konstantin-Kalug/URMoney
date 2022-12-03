@@ -11,6 +11,7 @@ namespace URMoney
         // financeConvert производит конвертацию некоторой суммы из одной валюты в другую согласно данным словаря
         static public double financeConvert(string charCodeInput, string charCodeOutput, double total, Dictionary<string, string[]> valutes)
         {
+            total = Math.Round(total, 2);
             // output - запись суммы после конвертации
             double output;
             try
@@ -28,6 +29,7 @@ namespace URMoney
         // financeDeposit расчитывает сумму, которая выйдет после закрытия вклада
         static public List<double> financeDeposit(double total, double percent, int term, int capitalizationPeriod, bool isReInvest)
         {
+            total = Math.Round(total, 2);
             List<double> output = new List<double>() { total };
             try
             {
@@ -57,6 +59,7 @@ namespace URMoney
         // financeCredit вычисляет ежемесячные платежи и их сумму
         static public List<double> financeCredit(double total, double percent, int numberOfPeriods, bool dif)
         {
+            total = Math.Round(total, 2);
             List<double> output = new List<double> { total };
             try
             {
@@ -80,6 +83,29 @@ namespace URMoney
                 output.Add(output.Sum() - total);
             }
             catch
+            {
+                output.Add(-1);
+            }
+            return output;
+        }
+        // financePercent находит процент от числа, число от процента, сумму и разность числа с процентом в указанном порядке
+        static public List<double> financePercent(double total, double percent, int numberOfOperation)
+        {
+            total = Math.Round(total, 2);
+            List<double> output = new List<double> { total };
+            try
+            {
+                if (total < 0 || percent < 0)
+                    throw new Exception();
+                switch (numberOfOperation)
+                {
+                    case 0: output.Add(total * percent / 100); break;
+                    case 1: output.Add(total / percent * 100); break;
+                    case 2: output.Add(total * (1 + percent / 100)); break;
+                    case 3: output.Add(total * (1 - percent / 100)); break;
+                }
+            }
+            catch (Exception)
             {
                 output.Add(-1);
             }
