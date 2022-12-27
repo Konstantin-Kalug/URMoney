@@ -203,5 +203,10 @@ namespace URMoney
             VisualGrid.Visibility = Visibility.Visible;
             InitializeVisual();
         }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
