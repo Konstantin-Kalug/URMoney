@@ -560,7 +560,7 @@
                     <TextBlock Text="Срок вклада, месяцы" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
                 </Border>
             </StackPanel>
-            <RadioButton Content="Ежемесячные проценты реинвестируются" FontSize="13" Background="LightGray" BorderBrush="DarkGray" Grid.Column="2" Margin="56,268,29,15" Grid.Row="1"/>
+            <RadioButton Content="Ежемесячные проценты реинвестируются" FontSize="13" Background="LightGray" BorderBrush="DarkGray" Grid.Column="2"  Margin="56,268,29,15" Grid.Row="1"/>
             <Ellipse Style="{DynamicResource BorderLogo}" Grid.Column="1" Margin="193,36,192,-62" Grid.Row="2" Height="125" Width="125"/>
             <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="120" Width="120" Margin="193,39,192,-59" Grid.Row="2"/>
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" />
