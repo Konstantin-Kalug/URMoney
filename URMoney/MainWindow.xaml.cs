@@ -238,7 +238,13 @@ namespace URMoney
         {
             try
             {
-                //List<double> elems = FinanceMath.financeCredit();
+                List<double> elems = FinanceMath.financeCredit(Convert.ToDouble(totalCreditTextBox.Text), Convert.ToDouble(percentCreditTextBox.Text), Convert.ToInt32(numberOfPeriodsTextBox.Text), (bool)difRationButton.IsChecked);
+                if (elems.Count == 2 && elems[elems.Count - 1] == -1)
+                    throw new Exception();
+                outputCreditTextBox.Text = "Изначальная сумма: " + elems[0].ToString();
+                for (int i = 1; i < elems.Count - 1; i++)
+                    outputCreditTextBox.Text += $"\nПлатеж за {i}-й месяц: {elems[i]}";
+                outputCreditTextBox.Text += $"\nСумма платежей: {elems[elems.Count - 1]}";
             }
             catch
             {
@@ -248,7 +254,20 @@ namespace URMoney
 
         private void calcPercentButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                List<double> elems = FinanceMath.financeCredit(Convert.ToDouble(totalCreditTextBox.Text), Convert.ToDouble(percentCreditTextBox.Text), Convert.ToInt32(numberOfPeriodsTextBox.Text), (bool)difRationButton.IsChecked);
+                if (elems.Count == 2 && elems[elems.Count - 1] == -1)
+                    throw new Exception();
+                outputCreditTextBox.Text = "Изначальная сумма: " + elems[0].ToString();
+                for (int i = 1; i < elems.Count - 1; i++)
+                    outputCreditTextBox.Text += $"\nПлатеж за {i}-й месяц: {elems[i]}";
+                outputCreditTextBox.Text += $"\nСумма платежей: {elems[elems.Count - 1]}";
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
+            }
         }
 
         private void calcDepositButton_Click(object sender, RoutedEventArgs e)
