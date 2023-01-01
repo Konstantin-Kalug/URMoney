@@ -533,18 +533,18 @@
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Калькулятор вкладов"/>
-            <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
+            <TextBox x:Name="outputDepositTextBox" Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
             <StackPanel Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <!-- Стак панель для панелей ввода -->
                     <StackPanel x:Name="TextBox_ContCalc" HorizontalAlignment="Left">
-                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        <TextBox x:Name="capitalizationPeriodTextBox" Style="{DynamicResource Calc_TextBox}">
                         </TextBox>
-                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        <TextBox x:Name="totalDepositTextBox" Style="{DynamicResource Calc_TextBox}">
                         </TextBox>
-                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        <TextBox x:Name="percentDepositTextBox" Style="{DynamicResource Calc_TextBox}">
                         </TextBox>
-                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        <TextBox x:Name="termDepositTextBox" Style="{DynamicResource Calc_TextBox}">
                         </TextBox>
                     </StackPanel>
                     <!-- Стак панель для блоков текста -->
@@ -563,8 +563,8 @@
                         </Border>
                     </StackPanel>
                 </StackPanel>
-                <CheckBox Content="Капитализация" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
-                <Button x:Name="calcDepositButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать"/>
+                <CheckBox x:Name="reInvestCheckBox" Content="Капитализация" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
+                <Button x:Name="calcDepositButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать" Click="calcDepositButton_Click"/>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
@@ -612,7 +612,7 @@
                 <CheckBox Content="Число от процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
                 <CheckBox Content="Сумма числа и процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
                 <CheckBox Content="Разность числа и процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
-                <Button x:Name="calcPercentButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать"/>
+                <Button x:Name="calcPercentButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать" Click="calcPercentButton_Click"/>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
@@ -664,7 +664,7 @@
                 </StackPanel>
                 <RadioButton Content="Аннуитетные платежи" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10" IsChecked="True"/>
                 <RadioButton Content="Дифференцированные платежи" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
-                <Button x:Name="calcCreditButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать"/>
+                <Button x:Name="calcCreditButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать" Click="calcCreditButton_Click"/>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>

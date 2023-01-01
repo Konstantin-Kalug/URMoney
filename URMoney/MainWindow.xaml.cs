@@ -233,5 +233,40 @@ namespace URMoney
             calcStackPanel.Visibility = Visibility.Visible;
             tablesStackPanel.Visibility = Visibility.Hidden;
         }
+
+        private void calcCreditButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //List<double> elems = FinanceMath.financeCredit();
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
+            }
+        }
+
+        private void calcPercentButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void calcDepositButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                List<double> elems = FinanceMath.financeDeposit(Convert.ToDouble(totalDepositTextBox.Text), Convert.ToDouble(percentDepositTextBox.Text), Convert.ToInt32(termDepositTextBox.Text), Convert.ToInt32(capitalizationPeriodTextBox.Text), (bool)reInvestCheckBox.IsChecked);
+                if (elems.Count == 2 && elems[elems.Count - 1] == -1)
+                    throw new Exception();
+                outputDepositTextBox.Text = "Изначальная сумма: " + elems[0].ToString();
+                for (int i = 1; i < elems.Count - 1; i++)
+                    outputDepositTextBox.Text += $"\n{i}-й месяц: {elems[i]}";
+                outputDepositTextBox.Text += $"\nКонечная сумма: {elems[elems.Count - 1]}";
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
+            }
+        }
     }
 }
