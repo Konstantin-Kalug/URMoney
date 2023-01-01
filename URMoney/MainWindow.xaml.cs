@@ -29,7 +29,7 @@ namespace URMoney
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame };
+            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame, UserFrame };
             percentCheckBoxes = new CheckBox[] { percent0CheckBox, percent1CheckBox, percent2CheckBox, percent3CheckBox };
         }
         // при загрузке окна
@@ -43,6 +43,7 @@ namespace URMoney
             DataContext = db.Operations.Local.ToObservableCollection();
             InitializeBD();
             OutputDataGrid();
+            OutputDataGridPeople();
         }
         // первоначальное добавление элементов, если их нет (без учета модуля валют)
         private void InitializeBD()
@@ -170,6 +171,14 @@ namespace URMoney
             foreach (var elem in elems)
                 items.Add(new DataItem { Column1 = elem.Id, Column2 = db.Categories.Find(elem.CategoryId).Title, Column3 = db.Transactions.Find(elem.TransactionId).Title, Column4 = db.Peoples.Find(elem.PeopleId).Name, Column5 = db.Transactions.Find(elem.TransactionId).Total, Column6 = db.Valutes.Find(elem.ValuteId).Title, Column7 = elem.Date, Column8 = elem.Note });
             table.ItemsSource = items;
+        }
+        private void OutputDataGridPeople()
+        {
+            People[] elems = db.Peoples.ToArray();
+            List<DataItemPeople> items = new List<DataItemPeople>();
+            foreach (var elem in elems)
+                items.Add(new DataItemPeople { Column1 = elem.Id, Column2 = elem.Name });
+            tablePeople.ItemsSource = items;
         }
         // Таблицы Учёта
         private void tablesButton_Click(object sender, RoutedEventArgs e)
@@ -300,6 +309,69 @@ namespace URMoney
         private void sibsiuButton_Click(object sender, RoutedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://sibsiu.ru/") { UseShellExecute = true });
+        }
+
+        private void familyButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserFrame.Visibility = Visibility.Visible;
+        }
+
+        private void addHumansButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddPeopleWindow AddPeopleWindow = new AddPeopleWindow(null);
+            if (AddPeopleWindow.ShowDialog() == true)
+            {
+                try
+                {
+                    People People = new People { Name = AddPeopleWindow.output};
+                    db.Peoples.Add(People);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                }
+                OutputDataGridPeople();
+            }
+        }
+
+        private void editHumansButton_Click(object sender, RoutedEventArgs e)
+        {
+            // получаем выделенный объект
+            DataItemPeople? dataItem = tablePeople.SelectedItem as DataItemPeople;
+            // если ни одного объекта не выделено, выходим
+            if (dataItem is null) return;
+            AddPeopleWindow AddPeopleWindow = new AddPeopleWindow(dataItem);
+            if (AddPeopleWindow.ShowDialog() == true)
+            {
+                try
+                {
+                    // получаем измененный объект
+                    People people = db.Peoples.Find(dataItem.Column1);
+                    if (people != null)
+                    {
+                        people.Name = AddPeopleWindow.output;
+                        db.SaveChanges();
+                        OutputDataGridPeople();
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                }
+            }
+        }
+
+        private void deleteHumansButton_Click(object sender, RoutedEventArgs e)
+        {
+            // получаем выделенный объект
+            DataItemPeople? dataItem = tablePeople.SelectedItem as DataItemPeople;
+            // если ни одного объекта не выделено, выходим
+            if (dataItem is null) return;
+            People people = db.Peoples.Find(dataItem.Column1);
+            db.Peoples.Remove(people);
+            db.SaveChanges();
+            OutputDataGridPeople();
         }
     }
 }
