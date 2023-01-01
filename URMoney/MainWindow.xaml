@@ -68,9 +68,9 @@
             <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="0 10 0 10"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -408,14 +408,16 @@
             <!-- Стак панель для кнопок в левой части окна -->
             <StackPanel x:Name="elemsDBStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
                 <Button Style="{DynamicResource But_LefpPanel}">
+                    <Image Source="static/img/sibsiu.jpg"/>
                 </Button>
                 <Button Style="{DynamicResource But_LefpPanel}">
+                    <Image Source="static/img/family.png"/>
                 </Button>
                 <Button Style="{DynamicResource But_LefpPanel}">
+                    <Image Source="static/img/category.png"/>
                 </Button>
                 <Button Style="{DynamicResource But_LefpPanel}">
-                </Button>
-                <Button Style="{DynamicResource But_LefpPanel}">
+                    <Image Source="static/img/transaction.png"/>
                 </Button>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" />

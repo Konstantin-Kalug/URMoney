@@ -269,7 +269,7 @@ namespace URMoney
                             case 2: outputPercentTextBox.Text += "\nСумма числа и процента:"; break;
                             case 3: outputPercentTextBox.Text += "\nРазность числа и процента:"; break;
                         }
-                        outputPercentTextBox.Text += $" {FinanceMath.financePercent(Convert.ToDouble(totalPercentTextBox.Text), Convert.ToDouble(percentPercentTextBox.Text), i)[1]}";
+                        outputPercentTextBox.Text += $"{FinanceMath.financePercent(Convert.ToDouble(totalPercentTextBox.Text), Convert.ToDouble(percentPercentTextBox.Text), i)[1]}";
                     }
             }
             catch

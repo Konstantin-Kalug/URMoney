@@ -8,12 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="category.png" />
+    <None Remove="family.png" />
+    <None Remove="sibsiu.jpg" />
+    <None Remove="static\img\category.png" />
+    <None Remove="static\img\family.png" />
+    <None Remove="static\img\sibsiu.jpg" />
+    <None Remove="static\img\transaction.png" />
+    <None Remove="transaction.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0" />
     <PackageReference Include="ScottPlot.WPF" Version="4.1.59" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="static\img\" />
+    <Resource Include="static\img\category.png" />
+    <Resource Include="static\img\family.png" />
+    <Resource Include="static\img\sibsiu.jpg" />
+    <Resource Include="static\img\transaction.png" />
   </ItemGroup>
 
 </Project>
