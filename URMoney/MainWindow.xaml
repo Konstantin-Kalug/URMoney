@@ -588,30 +588,30 @@
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Калькулятор процентов"/>
-            <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
+            <TextBox x:Name="outputPercentTextBox" Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
             <!-- Стак панель для панелей ввода -->
             <StackPanel Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <StackPanel x:Name="TextBox_BonCalc" HorizontalAlignment="Left">
-                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        <TextBox x:Name="totalPercentTextBox" Style="{DynamicResource Calc_TextBox}">
                         </TextBox>
-                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        <TextBox x:Name="percentPercentTextBox" Style="{DynamicResource Calc_TextBox}">
                         </TextBox>
                     </StackPanel>
                     <!-- Стак панель для блоков текста -->
                     <StackPanel x:Name="Border_BonCalc" HorizontalAlignment="Right">
                         <Border Style="{DynamicResource Calc_TextBlock}">
-                            <TextBlock Text="Введите сумму" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Сумма" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <Border Style="{DynamicResource Calc_TextBlock}">
-                            <TextBlock Text="Введите процент" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="Процент" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </StackPanel>
                 </StackPanel>
-                <CheckBox Content="Процент от числа" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
-                <CheckBox Content="Число от процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
-                <CheckBox Content="Сумма числа и процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
-                <CheckBox Content="Разность числа и процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
+                <CheckBox x:Name="percent0CheckBox" Content="Процент от числа" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
+                <CheckBox x:Name="percent1CheckBox" Content="Число от процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
+                <CheckBox x:Name="percent2CheckBox" Content="Сумма числа и процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
+                <CheckBox x:Name="percent3CheckBox" Content="Разность числа и процента" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
                 <Button x:Name="calcPercentButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать" Click="calcPercentButton_Click"/>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" />

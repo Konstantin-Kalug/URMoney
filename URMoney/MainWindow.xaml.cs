@@ -23,11 +23,13 @@ namespace URMoney
     {
         private ApplicationContext db = new ApplicationContext();
         private Grid[] speciallyFrames;
+        private CheckBox[] percentCheckBoxes;
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
             speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame };
+            percentCheckBoxes = new CheckBox[] { percent0CheckBox, percent1CheckBox, percent2CheckBox, percent3CheckBox };
         }
         // при загрузке окна
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -256,13 +258,19 @@ namespace URMoney
         {
             try
             {
-                List<double> elems = FinanceMath.financeCredit(Convert.ToDouble(totalCreditTextBox.Text), Convert.ToDouble(percentCreditTextBox.Text), Convert.ToInt32(numberOfPeriodsTextBox.Text), (bool)difRationButton.IsChecked);
-                if (elems.Count == 2 && elems[elems.Count - 1] == -1)
-                    throw new Exception();
-                outputCreditTextBox.Text = "Изначальная сумма: " + elems[0].ToString();
-                for (int i = 1; i < elems.Count - 1; i++)
-                    outputCreditTextBox.Text += $"\nПлатеж за {i}-й месяц: {elems[i]}";
-                outputCreditTextBox.Text += $"\nСумма платежей: {elems[elems.Count - 1]}";
+                outputPercentTextBox.Text = "Изначальная сумма: " + Math.Round(Convert.ToDouble(totalPercentTextBox.Text), 2);
+                for (int i = 0; i < percentCheckBoxes.Length; i++)
+                    if (percentCheckBoxes[i].IsChecked == true)
+                    {
+                        switch (i)
+                        {
+                            case 0: outputPercentTextBox.Text += "\nПроцент от числа:"; break;
+                            case 1: outputPercentTextBox.Text += "\nЧисло от процента:"; break;
+                            case 2: outputPercentTextBox.Text += "\nСумма числа и процента:"; break;
+                            case 3: outputPercentTextBox.Text += "\nРазность числа и процента:"; break;
+                        }
+                        outputPercentTextBox.Text += $" {FinanceMath.financePercent(Convert.ToDouble(totalPercentTextBox.Text), Convert.ToDouble(percentPercentTextBox.Text), i)[1]}";
+                    }
             }
             catch
             {

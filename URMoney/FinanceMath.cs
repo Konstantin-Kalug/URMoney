@@ -99,10 +99,10 @@ namespace URMoney
                     throw new Exception();
                 switch (numberOfOperation)
                 {
-                    case 0: output.Add(total * percent / 100); break;
-                    case 1: output.Add(total / percent * 100); break;
-                    case 2: output.Add(total * (1 + percent / 100)); break;
-                    case 3: output.Add(total * (1 - percent / 100)); break;
+                    case 0: output.Add(Math.Round(total * percent / 100, 2)); break;
+                    case 1: output.Add(Math.Round(total / percent * 100, 2)); break;
+                    case 2: output.Add(Math.Round(total * (1 + percent / 100))); break;
+                    case 3: output.Add(Math.Round(total * (1 - percent / 100))); break;
                 }
             }
             catch (Exception)
