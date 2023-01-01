@@ -275,20 +275,19 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="Calc_Grid" TargetType="{x:Type Grid}">
-            <Setter Property="Width" Value="510"/>
-            <Setter Property="Height" Value="300"/>
-            <Setter Property="Background" Value="#A9A9A9"/>
+        <Style x:Key="Output" TargetType="{x:Type TextBox}">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+            <Setter Property="Background" Value="#545454"/>
+            <Setter Property="IsReadOnly" Value="True"/>
         </Style>
         <Style x:Key="Calc_TextBox" TargetType="{x:Type TextBox}">
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Height" Value="23"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="Margin" Value="0 11 0 11"/>
+            <Setter Property="Width" Value="100"/>
         </Style>
         <Style x:Key="Calc_TextBlock" TargetType="{x:Type Border}">
-            <Setter Property="Width" Value="125"/>
-            <Setter Property="Height" Value="50"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -399,45 +398,45 @@
             </Grid.ColumnDefinitions>
             <!-- Стак панель для кнопок сверху -->
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center">
-                <Button Style="{DynamicResource MainBut}" Grid.Column="0" Content="Таблицы учёта" Click="Button_Click_2"/>
+                <Button x:Name="tablesButton" Style="{DynamicResource MainBut}" Grid.Column="0" Content="Таблицы учёта" Click="tablesButton_Click"/>
                 <Separator Opacity="0" Width="320"/>
-                <Button Style="{DynamicResource MainBut}" Grid.Column="3" Content="Расчёты" />
+                <Button x:Name="calcsButton" Style="{DynamicResource MainBut}" Grid.Column="3" Content="Расчёты" Click="calcsButton_Click"/>
             </StackPanel>
             <!-- Лого с обводкой -->
             <Ellipse Style="{DynamicResource BorderLogo}" Grid.Column="1" Height="60" Width="60"/>
             <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="60"/>
             <!-- Стак панель для кнопок в левой части окна -->
-            <StackPanel x:Name="buttonsExpensesStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-                <Button Style="{DynamicResource But_LefpPanel}" Content="">
+            <StackPanel x:Name="elemsDBStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                <Button Style="{DynamicResource But_LefpPanel}">
                 </Button>
-                <Button Style="{DynamicResource But_LefpPanel}" Content="">
+                <Button Style="{DynamicResource But_LefpPanel}">
                 </Button>
-                <Button Style="{DynamicResource But_LefpPanel}" Content="">
+                <Button Style="{DynamicResource But_LefpPanel}">
                 </Button>
-                <Button Style="{DynamicResource But_LefpPanel}" Content="">
+                <Button Style="{DynamicResource But_LefpPanel}">
                 </Button>
-                <Button Style="{DynamicResource But_LefpPanel}" Content="">
+                <Button Style="{DynamicResource But_LefpPanel}">
                 </Button>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" />
             <!-- Стак панель для кнопок по центру -->
-            <StackPanel x:Name="CentralBut" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Visibility="Hidden">
-                <Button  Style="{DynamicResource But_Center}" Content="Доходы" Click="Button_Click">
+            <StackPanel x:Name="tablesStackPanel" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Visibility="Hidden">
+                <Button  x:Name="incomeButton" Style="{DynamicResource But_Center}" Content="Доходы" Click="incomeButton_Click">
                 </Button>
-                <Button  Style="{DynamicResource But_Center}" Content="Расходы" Click="Button_Click_1">
+                <Button x:Name="expensesButton" Style="{DynamicResource But_Center}" Content="Расходы" Click="expensesButton_Click">
                 </Button>
                 <Button x:Name="visualisationButton" Style="{DynamicResource But_Center}" Content="Визуализация" Click="visualisationButton_Click">
                 </Button>
             </StackPanel>
             <!-- Стак панель для кнопок по центру 2-->
-            <StackPanel x:Name="Centralbuttons2StackPanel" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Visibility="Hidden">
-                <Button  Style="{DynamicResource But_Center2}" Content="Калькулятор вкладов">
+            <StackPanel x:Name="calcStackPanel" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Visibility="Hidden">
+                <Button x:Name="depositButton" Style="{DynamicResource But_Center2}" Content="Вклады" Click="depositButton_Click">
                 </Button>
-                <Button  Style="{DynamicResource But_Center2}" Content="Калькулятор бонусов">
+                <Button x:Name="percentButton" Style="{DynamicResource But_Center2}" Content="Проценты" Click="percentButton_Click">
                 </Button>
-                <Button  Style="{DynamicResource But_Center2}" Content="Калькулятор покашения &#xa; кредитной карты" FontSize="17">
+                <Button x:Name="creditButton" Style="{DynamicResource But_Center2}" Content="Кредиты" Click="creditButton_Click">
                 </Button>
-                <Button  Style="{DynamicResource But_Center2}" Content="Конвертор">
+                <Button x:Name="convertButton"  Style="{DynamicResource But_Center2}" Content="Конвертер" Click="convertButton_Click">
                 </Button>
             </StackPanel>
         </Grid>
@@ -487,16 +486,14 @@
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" />
             <!--<Button Style="{DynamicResource FAQ}" Grid.Column="0" Content="$" HorizontalAlignment="Left" Margin="0" Height="25" Width="25" FontSize="18"/>-->
-            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="2" Content="->" Background="#908C30" VerticalAlignment="Center" Width="25" Height="25" Click="Button_Click_3"/>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="2" Content="->" Background="#908C30" VerticalAlignment="Center" Width="25" Height="25" Click="backButton_Click"/>
         </Grid>
         <!-- Окно для визуализации -->
-        <Grid x:Name="VisualGrid" Background="Gray" Visibility="Hidden">
+        <Grid x:Name="VisualFrame" Background="Gray" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50">
                 </RowDefinition>
                 <RowDefinition Height="*">
-                </RowDefinition>
-                <RowDefinition Height="50">
                 </RowDefinition>
                 <RowDefinition Height="50">
                 </RowDefinition>
@@ -514,64 +511,71 @@
             <WpfPlot x:Name="groupPlot" Grid.Column="1" Grid.Row="1"/>
             <WpfPlot x:Name="piePlot" Grid.Column="2" Grid.Row="1"/>
             <Button Style="{DynamicResource FAQ}" />
-            <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="->" Background="#908C30" VerticalAlignment="Center" Width="25" Height="25" Click="Button_Click_3"/>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
         <!-- Калькулятор вкладов -->
-        <Grid x:Name="ContributionCalculator" Background="Gray" Visibility="Hidden">
+        <Grid x:Name="DepositFrame" Background="Gray" Visibility="Visible">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30">
+                <RowDefinition Height="50">
                 </RowDefinition>
-                <RowDefinition Height="300"/>
-                <RowDefinition Height="100">
+                <RowDefinition/>
+                <RowDefinition Height="50">
                 </RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30">
+                <ColumnDefinition Width="50">
                 </ColumnDefinition>
                 <ColumnDefinition>
                 </ColumnDefinition>
-                <ColumnDefinition Width="360">
+                <ColumnDefinition Width="300">
+                </ColumnDefinition>
+                <ColumnDefinition Width="50">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Style="{DynamicResource Calc_Grid}" Margin="0,0,0,2" Grid.Column="1" Grid.Row="1"/>
-            <!-- Стак панель для панелей ввода -->
-            <StackPanel x:Name="TextBox_ContCalc" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Visibility="Visible" Height="220" Margin="60,0,188,0">
-                <TextBox Style="{DynamicResource Calc_TextBox}" Grid.Column="2" Margin="0,10,0,0" Grid.Row="1">
-                </TextBox>
-                <TextBox Style="{DynamicResource Calc_TextBox}" Grid.Column="2" Margin="0,30,0,0" Grid.Row="1">
-                </TextBox>
-                <TextBox Style="{DynamicResource Calc_TextBox}" Grid.Column="2" Margin="0,40,0,0" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Width="110">
-                </TextBox>
-                <TextBox Style="{DynamicResource Calc_TextBox}" Grid.Column="2" Margin="0,35,0,0" Grid.Row="1">
-                </TextBox>
+            <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <!-- Стак панель для панелей ввода -->
+                    <StackPanel x:Name="TextBox_ContCalc" HorizontalAlignment="Left">
+                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        </TextBox>
+                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        </TextBox>
+                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        </TextBox>
+                        <TextBox Style="{DynamicResource Calc_TextBox}">
+                        </TextBox>
+                    </StackPanel>
+                    <!-- Стак панель для блоков текста -->
+                    <StackPanel x:Name="Border_ContCalc" HorizontalAlignment="Right">
+                        <Border Style="{DynamicResource Calc_TextBlock}">
+                            <TextBlock Text="Срок капитализации" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <Border Style="{DynamicResource Calc_TextBlock}">
+                            <TextBlock Text="Сумма вклада" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <Border Style="{DynamicResource Calc_TextBlock}">
+                            <TextBlock Text="Процентная ставка" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <Border Style="{DynamicResource Calc_TextBlock}">
+                            <TextBlock Text="Срок вклада, месяцы" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+                <CheckBox Content="Капитализация" FontSize="14" Background="LightGray" BorderBrush="DarkGray" Margin="10"/>
             </StackPanel>
-            <!-- Стак панель для блоков текста -->
-            <StackPanel x:Name="Border_ContCalc" Grid.Column="2" VerticalAlignment="Center" Visibility="Visible" HorizontalAlignment="Left" Margin="195,0,0,0" Height="250" Width="149" Grid.Row="1">
-                <Border Style="{DynamicResource Calc_TextBlock}">
-                    <TextBlock Text="Срок капитализации" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
-                </Border>
-                <Border Style="{DynamicResource Calc_TextBlock}">
-                    <TextBlock Text="Сумма вклада" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Margin="0,9.5,0,0"/>
-                </Border>
-                <Border Style="{DynamicResource Calc_TextBlock}">
-                    <TextBlock Text="Процентная ставка" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
-                </Border>
-                <Border Style="{DynamicResource Calc_TextBlock}">
-                    <TextBlock Text="Срок вклада, месяцы" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
-                </Border>
-            </StackPanel>
-            <RadioButton Content="Ежемесячные проценты реинвестируются" FontSize="13" Background="LightGray" BorderBrush="DarkGray" Grid.Column="2"  Margin="56,268,29,15" Grid.Row="1"/>
-            <Ellipse Style="{DynamicResource BorderLogo}" Grid.Column="1" Margin="193,36,192,-62" Grid.Row="2" Height="125" Width="125"/>
-            <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="120" Width="120" Margin="193,39,192,-59" Grid.Row="2"/>
-            <Button Style="{DynamicResource FAQ}" Grid.Column="2" />
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
-        <!-- Калькулятор бонусов -->
-        <Grid x:Name="Bonus_Calculator" Background="Gray" Visibility="Hidden">
+        <!-- Калькулятор процентов -->
+        <Grid x:Name="PercentFrame" Background="Gray" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30">
                 </RowDefinition>
-                <RowDefinition Height="300"/>
-                <RowDefinition Height="100">
+                <RowDefinition Height="3*"/>
+                <RowDefinition>
+                </RowDefinition>
+                <RowDefinition Height="50">
                 </RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -582,7 +586,7 @@
                 <ColumnDefinition Width="360">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Style="{DynamicResource Calc_Grid}" Margin="0,0,0,2" Grid.Column="1" Grid.Row="1"/>
+            <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
             <!-- Стак панель для панелей ввода -->
             <StackPanel x:Name="TextBox_BonCalc" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Visibility="Visible" Height="132" Margin="60,90,188,0">
                 <TextBox Style="{DynamicResource Calc_TextBox}" Grid.Column="2" Margin="0,0,0,0" Grid.Row="1">
@@ -594,19 +598,20 @@
                     <TextBlock Text="Введите сумму" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
-            <Button  Style="{DynamicResource But_Center}" Content="Округлить" Click="Button_Click" Margin="80,154,60,99" Grid.Column="2" Grid.Row="1">
+            <Button  Style="{DynamicResource But_Center}" Content="Округлить" Margin="80,154,60,99" Grid.Column="2" Grid.Row="1">
             </Button>
-            <Ellipse Style="{DynamicResource BorderLogo}" Grid.Column="1" Margin="193,36,192,-62" Grid.Row="2" Height="125" Width="125"/>
-            <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="120" Width="120" Margin="193,39,192,-59" Grid.Row="2"/>
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" />
+            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
         <!-- Калькулятор погашения кредитной карты -->
-        <Grid x:Name="CreditCard_Calculator" Background="Gray" Visibility="Hidden">
+        <Grid x:Name="CreditFrame" Background="Gray" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30">
                 </RowDefinition>
-                <RowDefinition Height="300"/>
-                <RowDefinition Height="100">
+                <RowDefinition Height="3*"/>
+                <RowDefinition>
+                </RowDefinition>
+                <RowDefinition Height="50">
                 </RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -617,7 +622,7 @@
                 <ColumnDefinition Width="360">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Style="{DynamicResource Calc_Grid}" Margin="29,29,1,1" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+            <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
             <!-- Стак панель для панелей ввода -->
             <StackPanel x:Name="TextBox_CardCalc" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Visibility="Visible" Height="132" Margin="60,90,188,0">
                 <TextBox Style="{DynamicResource Calc_TextBox}" Grid.Column="2" Margin="0,0,0,0" Grid.Row="1">
@@ -641,17 +646,18 @@
             </StackPanel>
             <RadioButton Content="Аннуитетные платежи" FontSize="13" Background="LightGray" BorderBrush="DarkGray" Grid.Column="2" Margin="56,268,29,15" Grid.Row="1"/>
             <RadioButton Content="Дифференцированные платежи" FontSize="13" Background="LightGray" BorderBrush="DarkGray" Grid.Column="2" Margin="56,250,29,15" Grid.Row="1"/>
-            <Ellipse Style="{DynamicResource BorderLogo}" Grid.Column="1" Margin="193,36,192,-62" Grid.Row="2" Height="125" Width="125"/>
-            <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="120" Width="120" Margin="193,39,192,-59" Grid.Row="2"/>
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" />
+            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
         <!-- Окно списка пользователей -->
-        <Grid x:Name="UserFrame" Background="Gray" Visibility="Visible">
+        <Grid x:Name="UserFrame" Background="Gray" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90">
                 </RowDefinition>
                 <RowDefinition/>
                 <RowDefinition Height="45">
+                </RowDefinition>
+                <RowDefinition Height="50">
                 </RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -677,7 +683,7 @@
                 <Button Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15"/>
                 <Button Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15"/>
             </StackPanel>
-            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="1" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="Button_Click_3" Margin="0,225,0,0" HorizontalAlignment="Center"/>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

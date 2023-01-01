@@ -22,10 +22,12 @@ namespace URMoney
     public partial class MainWindow : Window
     {
         private ApplicationContext db = new ApplicationContext();
+        private Grid[] speciallyFrames;
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame };
         }
         // при загрузке окна
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -167,12 +169,13 @@ namespace URMoney
             table.ItemsSource = items;
         }
         // Таблицы Учёта
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void tablesButton_Click(object sender, RoutedEventArgs e)
         {
-            CentralBut.Visibility = Visibility.Visible;
+            tablesStackPanel.Visibility = Visibility.Visible;
+            calcStackPanel.Visibility = Visibility.Hidden;
         }
         // Доходы
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void incomeButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Visibility = Visibility.Hidden;
             FrameTables.Visibility = Visibility.Visible;
@@ -181,7 +184,7 @@ namespace URMoney
 
         }
         // Расходы
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void expensesButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Visibility = Visibility.Hidden;
             FrameTables.Visibility = Visibility.Visible;
@@ -189,20 +192,46 @@ namespace URMoney
             income.Visibility = Visibility.Hidden;
         }
         //Вернуться на главное окно
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void backButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Visibility = Visibility.Visible;
-            FrameTables.Visibility = Visibility.Hidden;
-            CentralBut.Visibility = Visibility.Hidden;
-            VisualGrid.Visibility = Visibility.Hidden;
+            foreach (var frame in speciallyFrames)
+                frame.Visibility = Visibility.Hidden;
+            tablesStackPanel.Visibility = Visibility.Hidden;
+            calcStackPanel.Visibility = Visibility.Hidden;
         }
 
         private void visualisationButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Visibility = Visibility.Hidden;
-            VisualGrid.Visibility = Visibility.Visible;
+            VisualFrame.Visibility = Visibility.Visible;
             InitializeVisual();
         }
 
+        private void depositButton_Click(object sender, RoutedEventArgs e)
+        {
+            DepositFrame.Visibility = Visibility.Visible;
+        }
+
+        private void percentButton_Click(object sender, RoutedEventArgs e)
+        {
+            PercentFrame.Visibility = Visibility.Visible;
+        }
+
+        private void creditButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreditFrame.Visibility = Visibility.Visible;
+        }
+
+        private void convertButton_Click(object sender, RoutedEventArgs e)
+        {
+            //ConvertFrame.Visibility = Visibility.Visible;
+        }
+
+        private void calcsButton_Click(object sender, RoutedEventArgs e)
+        {
+            calcStackPanel.Visibility = Visibility.Visible;
+            tablesStackPanel.Visibility = Visibility.Hidden;
+        }
     }
 }
