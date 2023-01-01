@@ -407,7 +407,7 @@
             <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="60"/>
             <!-- Стак панель для кнопок в левой части окна -->
             <StackPanel x:Name="elemsDBStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-                <Button Style="{DynamicResource But_LefpPanel}">
+                <Button x:Name="sibsiuButton" Style="{DynamicResource But_LefpPanel}" Click="sibsiuButton_Click">
                     <Image Source="static/img/sibsiu.jpg"/>
                 </Button>
                 <Button Style="{DynamicResource But_LefpPanel}">
