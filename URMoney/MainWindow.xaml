@@ -532,6 +532,7 @@
                 <ColumnDefinition Width="50">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Label Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Калькулятор вкладов"/>
             <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
             <StackPanel Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Margin="10">
@@ -568,7 +569,7 @@
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
         <!-- Калькулятор процентов -->
-        <Grid x:Name="PercentFrame" Background="Gray" Visibility="Visible">
+        <Grid x:Name="PercentFrame" Background="Gray" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50">
                 </RowDefinition>
@@ -585,6 +586,7 @@
                 <ColumnDefinition Width="300">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Label Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Калькулятор процентов"/>
             <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
             <!-- Стак панель для панелей ввода -->
             <StackPanel Grid.Row="1" Grid.Column="2">
@@ -632,6 +634,7 @@
                 <ColumnDefinition Width="50">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <Label Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Калькулятор кредитов"/>
             <TextBox Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
             <StackPanel Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Margin="10">
