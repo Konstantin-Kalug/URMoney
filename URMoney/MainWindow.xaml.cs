@@ -22,17 +22,21 @@ namespace URMoney
     /// </summary>
     public partial class MainWindow : Window
     {
+
         private ApplicationContext db = new ApplicationContext();
+        Dictionary<string, string[]> valutes;
         private Grid[] speciallyFrames;
         private CheckBox[] percentCheckBoxes;
         private string type;
+
         public MainWindow()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame, PeopleFrame, CategoryFrame, TransactionFrame };
+            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame, PeopleFrame, CategoryFrame, TransactionFrame, ConvertFrame };
             percentCheckBoxes = new CheckBox[] { percent0CheckBox, percent1CheckBox, percent2CheckBox, percent3CheckBox };
         }
+
         // при загрузке окна
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -44,6 +48,7 @@ namespace URMoney
             DataContext = db.Operations.Local.ToObservableCollection();
             InitializeBD();
         }
+
         // первоначальное добавление элементов, если их нет (без учета модуля валют)
         private void InitializeBD()
         {
@@ -64,7 +69,7 @@ namespace URMoney
             }
             try
             {
-                Dictionary<string, string[]> valutes = Requests.getValutes();
+                valutes = Requests.getValutes();
                 db.Database.ExecuteSqlRaw("DELETE FROM Valutes");
                 int id = 1;
                 foreach (var elem in valutes)
@@ -72,6 +77,8 @@ namespace URMoney
                     Valute Valute = new Valute { Id = id, Title = elem.Value[0], CharCode=elem.Key, Сource = Convert.ToDecimal(elem.Value[1]) };
                     db.Valutes.Add(Valute);
                     id++;
+                    startValuteComboBox.Items.Add(elem.Value[0]);
+                    endValuteComboBox.Items.Add(elem.Value[0]);
                 }
             }
             catch (Exception)
@@ -80,6 +87,7 @@ namespace URMoney
             }
             db.SaveChanges();
         }
+
         // создаем словарь id - title
         private List<Dictionary<int, string>> InitializeKeysBD()
         {
@@ -98,11 +106,13 @@ namespace URMoney
                 dicts[3].Add(elem.Id, elem.Title);
             return dicts;
         }
+
         // выводим диаграммы
         private void InitializeVisual()
         {
             // SELECT total FROM operations INNER JOIN transactions ON transactionid = id INNER JOIN categories ON categoryid = id INNER JOIN types ON typeid = id WHERE type.title = "доходы"
         }
+
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             List<Dictionary<int, string>> keys = InitializeKeysBD();
@@ -117,11 +127,12 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
                 OutputDataGrid();
             }
         }
+
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             // получаем выделенный объект
@@ -150,10 +161,11 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
             }
         }
+
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             // получаем выделенный объект
@@ -165,6 +177,7 @@ namespace URMoney
             db.SaveChanges();
             OutputDataGrid();
         }
+
         private void OutputDataGrid()
         {
             Operation[] elems = db.Operations.ToArray();
@@ -182,6 +195,7 @@ namespace URMoney
                 }
             table.ItemsSource = items;
         }
+
         private void OutputDataGridPeople()
         {
             People[] elems = db.Peoples.ToArray();
@@ -190,6 +204,7 @@ namespace URMoney
                 items.Add(new DataItemPeople { Column1 = elem.Id, Column2 = elem.Name });
             tablePeople.ItemsSource = items;
         }
+
         private void OutputDataGridCategory()
         {
             Category[] elems = db.Categories.ToArray();
@@ -198,6 +213,7 @@ namespace URMoney
                 items.Add(new DataItemCategory { Column1 = elem.Id, Column2 = elem.Title, Column3 = db.Types.Find(elem.TypeId).Title});
             tableCategory.ItemsSource = items;
         }
+
         private void OutputDataGridTransaction()
         {
             Transaction[] elems = db.Transactions.ToArray();
@@ -206,12 +222,14 @@ namespace URMoney
                 items.Add(new DataItemTransaction { Column1 = elem.Id, Column2 = elem.Title, Column3 = elem.Total });
             tableTransaction.ItemsSource = items;
         }
+
         // Таблицы Учёта
         private void tablesButton_Click(object sender, RoutedEventArgs e)
         {
             tablesStackPanel.Visibility = Visibility.Visible;
             calcStackPanel.Visibility = Visibility.Hidden;
         }
+
         // Доходы
         private void incomeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -221,8 +239,8 @@ namespace URMoney
             income.Visibility = Visibility.Visible;
             type = "income";
             OutputDataGrid();
-
         }
+
         // Расходы
         private void expensesButton_Click(object sender, RoutedEventArgs e)
         {
@@ -233,6 +251,7 @@ namespace URMoney
             type = "expenses";
             OutputDataGrid();
         }
+
         //Вернуться на главное окно
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
@@ -267,7 +286,7 @@ namespace URMoney
 
         private void convertButton_Click(object sender, RoutedEventArgs e)
         {
-            //ConvertFrame.Visibility = Visibility.Visible;
+            ConvertFrame.Visibility = Visibility.Visible;
         }
 
         private void calcsButton_Click(object sender, RoutedEventArgs e)
@@ -360,7 +379,7 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
                 OutputDataGridPeople();
             }
@@ -388,7 +407,7 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
             }
         }
@@ -418,7 +437,7 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
                 OutputDataGridCategory();
             }
@@ -447,7 +466,7 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
             }
         }
@@ -511,7 +530,7 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
             }
         }
@@ -529,9 +548,24 @@ namespace URMoney
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                    MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
                 }
                 OutputDataGridTransaction();
+            }
+        }
+
+        private void calcConverterButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                outputConverterTextBox.Text = "Начальная сумма: " + Math.Round(Convert.ToDouble(totalConverterTextBox.Text), 2).ToString();
+                string startValute = db.Valutes.Where(p => p.Title == startValuteComboBox.Text).ToArray()[0].CharCode;
+                string endValute = db.Valutes.Where(p => p.Title == endValuteComboBox.Text).ToArray()[0].CharCode;
+                outputConverterTextBox.Text += "\nКонечная сумма: " + FinanceMath.financeConvert(startValute, endValute, Convert.ToDouble(totalConverterTextBox.Text), valutes).ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
             }
         }
     }

@@ -287,6 +287,12 @@
             <Setter Property="Margin" Value="0 11 0 11"/>
             <Setter Property="Width" Value="100"/>
         </Style>
+        <Style x:Key="Calc_ComboBox" TargetType="{x:Type ComboBox}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="Margin" Value="0 11 0 11"/>
+            <Setter Property="Width" Value="100"/>
+        </Style>
         <Style x:Key="Calc_TextBlock" TargetType="{x:Type Border}">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Padding" Value="5"/>
@@ -671,7 +677,57 @@
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
-        <!-- Окно списка пользователей -->
+        <!-- Конвертр -->
+        <Grid x:Name="ConvertFrame" Background="Gray" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50">
+                </RowDefinition>
+                <RowDefinition/>
+                <RowDefinition Height="50">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50">
+                </ColumnDefinition>
+                <ColumnDefinition>
+                </ColumnDefinition>
+                <ColumnDefinition Width="300">
+                </ColumnDefinition>
+                <ColumnDefinition Width="50">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Конвертер валют"/>
+            <TextBox x:Name="outputConverterTextBox" Style="{DynamicResource Output}"  Grid.Row="1" Grid.Column="1"/>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <!-- Стак панель для панелей ввода -->
+                    <StackPanel x:Name="TextBox_ConvCalc" HorizontalAlignment="Left">
+                        <TextBox x:Name="totalConverterTextBox" Style="{DynamicResource Calc_TextBox}" Width="130">
+                        </TextBox>
+                        <ComboBox x:Name="startValuteComboBox" Style="{DynamicResource Calc_ComboBox}" Width="130">
+                        </ComboBox>
+                        <ComboBox x:Name="endValuteComboBox" Style="{DynamicResource Calc_ComboBox}" Width="130">
+                        </ComboBox>
+                    </StackPanel>
+                    <!-- Стак панель для блоков текста -->
+                    <StackPanel x:Name="Border_ConvCalc" HorizontalAlignment="Right">
+                        <Border Style="{DynamicResource Calc_TextBlock}">
+                            <TextBlock Text="Начальная сумма" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <Border Style="{DynamicResource Calc_TextBlock}">
+                            <TextBlock Text="Начальная валюта" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <Border Style="{DynamicResource Calc_TextBlock}">
+                            <TextBlock Text="Конечная валюта" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+                <Button x:Name="calcConverterButton" Style="{DynamicResource MainBut}" Margin="20" Content="Расcчитать" Click="calcConverterButton_Click"/>
+            </StackPanel>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
+        </Grid>
+        <!-- Окно списка людей -->
         <Grid x:Name="PeopleFrame" Background="Gray" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90">
@@ -697,13 +753,14 @@
                     <DataGridTextColumn Header="Имя" Binding="{Binding Path=Column2}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label Content="Пользователи" FontSize="48" Grid.ColumnSpan="2" FontFamily="Palatino Linotype" FontWeight="Bold" Foreground="#FF424242" Grid.Column="1" Margin="0,0,3,0"/>
+            <Label Content="Люди" FontSize="48" Grid.ColumnSpan="2" FontFamily="Palatino Linotype" FontWeight="Bold" Foreground="#FF424242" Grid.Column="1" Margin="0,0,3,0"/>
             <!-- Стак панель для кнопок редактирования -->
             <StackPanel x:Name="UserEditionsButton" Grid.Row="1" Visibility="Visible" Grid.Column="2" Orientation="Vertical" Margin="0,0,0,15">
                 <Button x:Name="addHumansButton" Style="{DynamicResource UserButton}" Content="Добавить" Margin="0,20,0,15" Click="addHumansButton_Click"/>
                 <Button x:Name="editHumansButton" Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15" Click="editHumansButton_Click"/>
                 <Button x:Name="deleteHumansButton" Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15" Click="deleteHumansButton_Click"/>
             </StackPanel>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
         <!-- Окно списка категорий -->
@@ -740,6 +797,7 @@
                 <Button x:Name="editCategoriesButton" Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15" Click="editCategoriesButton_Click"/>
                 <Button x:Name="deleteCategoriesButton" Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15" Click="deleteCategoriesButton_Click"/>
             </StackPanel>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
         <!-- Окно списка транзакций -->
@@ -776,6 +834,7 @@
                 <Button x:Name="editTransactionsButton" Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15" Click="editTransactionsButton_Click"/>
                 <Button x:Name="deleteTransactionsButton" Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15" Click="deleteTransactionsButton_Click"/>
             </StackPanel>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="3" />
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
