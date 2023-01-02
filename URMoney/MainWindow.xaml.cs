@@ -66,10 +66,12 @@ namespace URMoney
             {
                 Dictionary<string, string[]> valutes = Requests.getValutes();
                 db.Database.ExecuteSqlRaw("DELETE FROM Valutes");
+                int id = 1;
                 foreach (var elem in valutes)
                 {
-                    Valute Valute = new Valute { Title = elem.Value[0], CharCode=elem.Key, Сource = Convert.ToDecimal(elem.Value[1]) };
+                    Valute Valute = new Valute { Id = id, Title = elem.Value[0], CharCode=elem.Key, Сource = Convert.ToDecimal(elem.Value[1]) };
                     db.Valutes.Add(Valute);
+                    id++;
                 }
             }
             catch (Exception)
