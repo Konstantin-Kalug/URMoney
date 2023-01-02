@@ -42,10 +42,6 @@ namespace URMoney
             // и устанавливаем данные в качестве контекста
             DataContext = db.Operations.Local.ToObservableCollection();
             InitializeBD();
-            OutputDataGrid();
-            OutputDataGridPeople();
-            OutputDataGridCategory();
-            OutputDataGridTransaction();
         }
         // первоначальное добавление элементов, если их нет (без учета модуля валют)
         private void InitializeBD()
@@ -171,7 +167,13 @@ namespace URMoney
             Operation[] elems = db.Operations.ToArray();
             List<DataItem> items = new List<DataItem>();
             foreach (var elem in elems)
-                items.Add(new DataItem { Column1 = elem.Id, Column2 = db.Categories.Find(elem.CategoryId).Title, Column3 = db.Transactions.Find(elem.TransactionId).Title, Column4 = db.Peoples.Find(elem.PeopleId).Name, Column5 = db.Transactions.Find(elem.TransactionId).Total, Column6 = db.Valutes.Find(elem.ValuteId).Title, Column7 = elem.Date, Column8 = elem.Note });
+                if (!(db.Categories.Find(elem.CategoryId) is null || db.Transactions.Find(elem.TransactionId) is null || db.Peoples.Find(elem.PeopleId) is null || db.Valutes.Find(elem.ValuteId) is null))
+                    items.Add(new DataItem { Column1 = elem.Id, Column2 = db.Categories.Find(elem.CategoryId).Title, Column3 = db.Transactions.Find(elem.TransactionId).Title, Column4 = db.Peoples.Find(elem.PeopleId).Name, Column5 = db.Transactions.Find(elem.TransactionId).Total, Column6 = db.Valutes.Find(elem.ValuteId).Title, Column7 = elem.Date, Column8 = elem.Note });
+                else
+                {
+                    db.Operations.Remove(elem);
+                    db.SaveChanges();
+                }
             table.ItemsSource = items;
         }
         private void OutputDataGridPeople()
@@ -211,6 +213,7 @@ namespace URMoney
             FrameTables.Visibility = Visibility.Visible;
             expenses.Visibility = Visibility.Hidden;
             income.Visibility = Visibility.Visible;
+            OutputDataGrid();
 
         }
         // Расходы
@@ -332,6 +335,7 @@ namespace URMoney
         private void familyButton_Click(object sender, RoutedEventArgs e)
         {
             PeopleFrame.Visibility = Visibility.Visible;
+            OutputDataGridPeople();
         }
 
         private void addHumansButton_Click(object sender, RoutedEventArgs e)
@@ -454,11 +458,13 @@ namespace URMoney
         private void categoryButton_Click(object sender, RoutedEventArgs e)
         {
             CategoryFrame.Visibility = Visibility.Visible;
+            OutputDataGridCategory();
         }
 
         private void transactionButton_Click(object sender, RoutedEventArgs e)
         {
             TransactionFrame.Visibility = Visibility.Visible;
+            OutputDataGridTransaction();
         }
 
         private void deleteTransactionsButton_Click(object sender, RoutedEventArgs e)
