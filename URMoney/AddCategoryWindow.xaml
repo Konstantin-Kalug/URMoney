@@ -1,0 +1,45 @@
+﻿<Window x:Class="URMoney.AddCategoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:URMoney"
+        mc:Ignorable="d"
+        Title="Настройка данных категории" Height="150" Width="400">
+    <Window.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="MinWidth" Value="90" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="MinWidth" Value="60" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="MinWidth" Value="50" />
+            <Setter Property="Margin" Value="8" />
+        </Style>
+    </Window.Resources>
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Content="Наименование"/>
+        <Label Content="Тип" Grid.Row="1"/>
+        <TextBox x:Name="titleBox" Grid.Column="1"/>
+        <ComboBox x:Name="typeBox" Grid.Column="1" Grid.Row="1">
+            <ComboBoxItem Content="Доход" IsSelected="True"/>
+            <ComboBoxItem Content="Расход"/>
+        </ComboBox>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" >
+            <Button IsDefault="True" Click="Accept_Click">OK</Button>
+            <Button IsCancel="True">Отмена</Button>
+        </StackPanel>
+    </Grid>
+</Window>

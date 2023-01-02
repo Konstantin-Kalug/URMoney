@@ -29,7 +29,7 @@ namespace URMoney
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame, UserFrame };
+            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame, PeopleFrame, CategoryFrame };
             percentCheckBoxes = new CheckBox[] { percent0CheckBox, percent1CheckBox, percent2CheckBox, percent3CheckBox };
         }
         // при загрузке окна
@@ -44,6 +44,7 @@ namespace URMoney
             InitializeBD();
             OutputDataGrid();
             OutputDataGridPeople();
+            OutputDataGridCategory();
         }
         // первоначальное добавление элементов, если их нет (без учета модуля валют)
         private void InitializeBD()
@@ -56,8 +57,8 @@ namespace URMoney
             // обязательные 2 типа, не изменяются
             if (db.Types.ToArray().Length == 0)
             {
-                db.Types.Add(new Type { Title = "Доходы" });
-                db.Types.Add(new Type { Title = "Расходы" });
+                db.Types.Add(new Type { Title = "Доход" });
+                db.Types.Add(new Type { Title = "Расход" });
             }
             if (db.Categories.ToArray().Length == 0)
             {
@@ -179,6 +180,14 @@ namespace URMoney
             foreach (var elem in elems)
                 items.Add(new DataItemPeople { Column1 = elem.Id, Column2 = elem.Name });
             tablePeople.ItemsSource = items;
+        }
+        private void OutputDataGridCategory()
+        {
+            Category[] elems = db.Categories.ToArray();
+            List<DataItemCategory> items = new List<DataItemCategory>();
+            foreach (var elem in elems)
+                items.Add(new DataItemCategory { Column1 = elem.Id, Column2 = elem.Title, Column3 = db.Types.Find(elem.TypeId).Title});
+            tableCategory.ItemsSource = items;
         }
         // Таблицы Учёта
         private void tablesButton_Click(object sender, RoutedEventArgs e)
@@ -313,7 +322,7 @@ namespace URMoney
 
         private void familyButton_Click(object sender, RoutedEventArgs e)
         {
-            UserFrame.Visibility = Visibility.Visible;
+            PeopleFrame.Visibility = Visibility.Visible;
         }
 
         private void addHumansButton_Click(object sender, RoutedEventArgs e)
@@ -372,6 +381,70 @@ namespace URMoney
             db.Peoples.Remove(people);
             db.SaveChanges();
             OutputDataGridPeople();
+        }
+
+        private void addCategoriesButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddCategoryWindow AddCategoryWindow = new AddCategoryWindow(null);
+            if (AddCategoryWindow.ShowDialog() == true)
+            {
+                try
+                {
+                    Category Category = new Category { Title = AddCategoryWindow.output[0], TypeId = db.Types.Where(p => p.Title == AddCategoryWindow.output[1]).ToArray()[0].Id };
+                    db.Categories.Add(Category);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                }
+                OutputDataGridCategory();
+            }
+        }
+
+        private void editCategoriesButton_Click(object sender, RoutedEventArgs e)
+        {
+            // получаем выделенный объект
+            DataItemCategory? dataItem = tableCategory.SelectedItem as DataItemCategory;
+            // если ни одного объекта не выделено, выходим
+            if (dataItem is null) return;
+            AddCategoryWindow AddCategoryWindow = new AddCategoryWindow(dataItem);
+            if (AddCategoryWindow.ShowDialog() == true)
+            {
+                try
+                {
+                    // получаем измененный объект
+                    Category category = db.Categories.Find(dataItem.Column1);
+                    if (category != null)
+                    {
+                        category.Title = AddCategoryWindow.output[0];
+                        category.TypeId = db.Types.Where(p => p.Title == AddCategoryWindow.output[1]).ToArray()[0].Id;
+                        db.SaveChanges();
+                        OutputDataGridCategory();
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                }
+            }
+        }
+
+        private void deleteCategoriesButton_Click(object sender, RoutedEventArgs e)
+        {
+            // получаем выделенный объект
+            DataItemCategory? dataItem = tableCategory.SelectedItem as DataItemCategory;
+            // если ни одного объекта не выделено, выходим
+            if (dataItem is null) return;
+            Category category = db.Categories.Find(dataItem.Column1);
+            db.Categories.Remove(category);
+            db.SaveChanges();
+            OutputDataGridCategory();
+        }
+
+        private void categoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            CategoryFrame.Visibility = Visibility.Visible;
         }
     }
 }

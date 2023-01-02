@@ -413,7 +413,7 @@
                 <Button x:Name="familyButton" Style="{DynamicResource But_LefpPanel}" Click="familyButton_Click">
                     <Image Source="static/img/family.png"/>
                 </Button>
-                <Button Style="{DynamicResource But_LefpPanel}">
+                <Button x:Name="categoryButton" Style="{DynamicResource But_LefpPanel}" Click="categoryButton_Click">
                     <Image Source="static/img/category.png"/>
                 </Button>
                 <Button Style="{DynamicResource But_LefpPanel}">
@@ -672,7 +672,7 @@
             <Button Style="{DynamicResource FAQ}" Grid.Column="3" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
         <!-- Окно списка пользователей -->
-        <Grid x:Name="UserFrame" Background="Gray" Visibility="Hidden">
+        <Grid x:Name="PeopleFrame" Background="Gray" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90">
                 </RowDefinition>
@@ -703,6 +703,42 @@
                 <Button x:Name="addHumansButton" Style="{DynamicResource UserButton}" Content="Добавить" Margin="0,20,0,15" Click="addHumansButton_Click"/>
                 <Button x:Name="editHumansButton" Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15" Click="editHumansButton_Click"/>
                 <Button x:Name="deleteHumansButton" Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15" Click="deleteHumansButton_Click"/>
+            </StackPanel>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
+        </Grid>
+        <!-- Окно списка категорий -->
+        <Grid x:Name="CategoryFrame" Background="Gray" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90">
+                </RowDefinition>
+                <RowDefinition/>
+                <RowDefinition Height="45">
+                </RowDefinition>
+                <RowDefinition Height="50">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30">
+                </ColumnDefinition>
+                <ColumnDefinition>
+                </ColumnDefinition>
+                <ColumnDefinition Width="139">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- Список пользователей -->
+            <DataGrid x:Name="tableCategory" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Column1}" Width="*"/>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Path=Column2}" Width="*"/>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding Path=Column3}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Категории" FontSize="48" Grid.ColumnSpan="2" FontFamily="Palatino Linotype" FontWeight="Bold" Foreground="#FF424242" Grid.Column="1" Margin="0,0,3,0"/>
+            <!-- Стак панель для кнопок редактирования -->
+            <StackPanel x:Name="CategoryEditionsButton" Grid.Row="1" Visibility="Visible" Grid.Column="2" Orientation="Vertical" Margin="0,0,0,15">
+                <Button x:Name="addCategoriesButton" Style="{DynamicResource UserButton}" Content="Добавить" Margin="0,20,0,15" Click="addCategoriesButton_Click"/>
+                <Button x:Name="editCategoriesButton" Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15" Click="editCategoriesButton_Click"/>
+                <Button x:Name="deleteCategoriesButton" Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15" Click="deleteCategoriesButton_Click"/>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>
