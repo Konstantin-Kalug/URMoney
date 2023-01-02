@@ -65,7 +65,7 @@
         </Style>
         <Style x:Key="But_LefpPanel" TargetType="{x:Type Button}">
             <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
             <Setter Property="Width" Value="50"/>
@@ -414,7 +414,7 @@
             <!-- Стак панель для кнопок в левой части окна -->
             <StackPanel x:Name="elemsDBStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
                 <Button x:Name="sibsiuButton" Style="{DynamicResource But_LefpPanel}" Click="sibsiuButton_Click">
-                    <Image Source="static/img/sibsiu.jpg"/>
+                    <Image Source="static/img/sibsiu.png"/>
                 </Button>
                 <Button x:Name="familyButton" Style="{DynamicResource But_LefpPanel}" Click="familyButton_Click">
                     <Image Source="static/img/family.png"/>
