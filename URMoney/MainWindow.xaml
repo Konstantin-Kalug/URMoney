@@ -466,7 +466,7 @@
                 <ColumnDefinition Width="200">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label x:Name="expenses" Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Таблица Расходов">
+            <Label x:Name="expenses" Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Таблица Расходов" Visibility="Hidden">
             </Label>
             <Label x:Name="income" Style="{DynamicResource NameTableExpenses}" Grid.Row="0" Grid.Column="1" Content="Таблица Доходов" Visibility="Hidden">
             </Label>
