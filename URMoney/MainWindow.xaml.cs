@@ -25,6 +25,7 @@ namespace URMoney
         private ApplicationContext db = new ApplicationContext();
         private Grid[] speciallyFrames;
         private CheckBox[] percentCheckBoxes;
+        private string type;
         public MainWindow()
         {
             InitializeComponent();
@@ -83,7 +84,7 @@ namespace URMoney
             List<Dictionary<int, string>> dicts = new List<Dictionary<int, string>>();
             dicts.Add(new Dictionary<int, string>());
             foreach (var elem in db.Categories.ToArray())
-                if (elem.TypeId == 2) dicts[0].Add(elem.Id, elem.Title);
+                if (elem.TypeId == 2 && type == "expenses" || elem.TypeId == 1 && type == "income") dicts[0].Add(elem.Id, elem.Title);
             dicts.Add(new Dictionary<int, string>());
             foreach (var elem in db.Peoples.ToArray())
                 dicts[1].Add(elem.Id, elem.Name);
@@ -168,7 +169,10 @@ namespace URMoney
             List<DataItem> items = new List<DataItem>();
             foreach (var elem in elems)
                 if (!(db.Categories.Find(elem.CategoryId) is null || db.Transactions.Find(elem.TransactionId) is null || db.Peoples.Find(elem.PeopleId) is null || db.Valutes.Find(elem.ValuteId) is null))
-                    items.Add(new DataItem { Column1 = elem.Id, Column2 = db.Categories.Find(elem.CategoryId).Title, Column3 = db.Transactions.Find(elem.TransactionId).Title, Column4 = db.Peoples.Find(elem.PeopleId).Name, Column5 = db.Transactions.Find(elem.TransactionId).Total, Column6 = db.Valutes.Find(elem.ValuteId).Title, Column7 = elem.Date, Column8 = elem.Note });
+                {
+                    if (db.Categories.Find(elem.CategoryId).TypeId == 1 && type == "income" || db.Categories.Find(elem.CategoryId).TypeId == 2 && type == "expenses")
+                        items.Add(new DataItem { Column1 = elem.Id, Column2 = db.Categories.Find(elem.CategoryId).Title, Column3 = db.Transactions.Find(elem.TransactionId).Title, Column4 = db.Peoples.Find(elem.PeopleId).Name, Column5 = db.Transactions.Find(elem.TransactionId).Total, Column6 = db.Valutes.Find(elem.ValuteId).Title, Column7 = elem.Date, Column8 = elem.Note });
+                }
                 else
                 {
                     db.Operations.Remove(elem);
@@ -213,6 +217,7 @@ namespace URMoney
             FrameTables.Visibility = Visibility.Visible;
             expenses.Visibility = Visibility.Hidden;
             income.Visibility = Visibility.Visible;
+            type = "income";
             OutputDataGrid();
 
         }
@@ -223,6 +228,8 @@ namespace URMoney
             FrameTables.Visibility = Visibility.Visible;
             expenses.Visibility = Visibility.Visible;
             income.Visibility = Visibility.Hidden;
+            type = "expenses";
+            OutputDataGrid();
         }
         //Вернуться на главное окно
         private void backButton_Click(object sender, RoutedEventArgs e)
