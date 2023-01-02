@@ -1,0 +1,17 @@
+﻿<Window x:Class="URMoney.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:URMoney"
+        mc:Ignorable="d"
+        Title="HelpWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Таблицы учета">Первая вкладка</TabItem>
+            <TabItem Header="Расчеты">Вторая вкладка</TabItem>
+            <TabItem Header="Списки">Третья вкладка</TabItem>
+            <TabItem Header="О программе">Четвертая вкладка</TabItem>
+        </TabControl>
+    </Grid>
+</Window>

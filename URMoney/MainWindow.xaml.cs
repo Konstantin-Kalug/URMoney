@@ -28,6 +28,7 @@ namespace URMoney
         private Grid[] speciallyFrames;
         private CheckBox[] percentCheckBoxes;
         private string type;
+        private int isTable = 0;
 
         public MainWindow()
         {
@@ -274,18 +275,40 @@ namespace URMoney
 
         //Вернуться на главное окно
         private void backButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Visibility = Visibility.Visible;
-            foreach (var frame in speciallyFrames)
-                frame.Visibility = Visibility.Hidden;
-            tablesStackPanel.Visibility = Visibility.Hidden;
-            calcStackPanel.Visibility = Visibility.Hidden;
+        { 
+            switch (isTable)
+            {
+                case 0:
+                    MainFrame.Visibility = Visibility.Visible;
+                    foreach (var frame in speciallyFrames)
+                        frame.Visibility = Visibility.Hidden;
+                    tablesStackPanel.Visibility = Visibility.Hidden;
+                    calcStackPanel.Visibility = Visibility.Hidden;
+                    expenses.Visibility = Visibility.Hidden;
+                    income.Visibility = Visibility.Hidden;
+                    break;
+                case 1:
+                    isTable = 0;
+                    VisualFrame.Visibility = Visibility.Hidden;
+                    incomeButton_Click(sender, e);
+                    break;
+                case 2:
+                    isTable = 0;
+                    VisualFrame.Visibility = Visibility.Hidden;
+                    expensesButton_Click(sender, e);
+                    break;
+            }
         }
 
-        private void visualisationButton_Click(object sender, RoutedEventArgs e)
+        private void visualizationButton_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Visibility = Visibility.Hidden;
+            FrameTables.Visibility = Visibility.Hidden;
             VisualFrame.Visibility = Visibility.Visible;
+            if (income.Visibility == Visibility.Visible)
+                isTable = 1;
+            if (expenses.Visibility == Visibility.Visible)
+                isTable = 2;
             InitializeVisual();
         }
 
@@ -587,6 +610,12 @@ namespace URMoney
             {
                 MessageBox.Show("Произошла ошибка, пожалуйства, проверьте корректность внесенных данных!");
             }
+        }
+
+        private void helpButton_Click(object sender, RoutedEventArgs e)
+        {
+            HelpWindow helpWindow = new HelpWindow();
+            helpWindow.Show();
         }
     }
 }

@@ -16,6 +16,7 @@
     <None Remove="static\img\sibsiu.jpg" />
     <None Remove="static\img\transaction.png" />
     <None Remove="transaction.png" />
+    <None Remove="visualization.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
     <Resource Include="static\img\family.png" />
     <Resource Include="static\img\sibsiu.jpg" />
     <Resource Include="static\img\transaction.png" />
+    <Resource Include="static\img\visualization.png" />
   </ItemGroup>
 
 </Project>
