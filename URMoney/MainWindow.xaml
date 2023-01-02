@@ -416,7 +416,7 @@
                 <Button x:Name="categoryButton" Style="{DynamicResource But_LefpPanel}" Click="categoryButton_Click">
                     <Image Source="static/img/category.png"/>
                 </Button>
-                <Button Style="{DynamicResource But_LefpPanel}">
+                <Button x:Name="transactionButton" Style="{DynamicResource But_LefpPanel}" Click="transactionButton_Click">
                     <Image Source="static/img/transaction.png"/>
                 </Button>
             </StackPanel>
@@ -725,7 +725,7 @@
                 <ColumnDefinition Width="139">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <!-- Список пользователей -->
+            <!-- Список категорий -->
             <DataGrid x:Name="tableCategory" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Path=Column1}" Width="*"/>
@@ -739,6 +739,42 @@
                 <Button x:Name="addCategoriesButton" Style="{DynamicResource UserButton}" Content="Добавить" Margin="0,20,0,15" Click="addCategoriesButton_Click"/>
                 <Button x:Name="editCategoriesButton" Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15" Click="editCategoriesButton_Click"/>
                 <Button x:Name="deleteCategoriesButton" Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15" Click="deleteCategoriesButton_Click"/>
+            </StackPanel>
+            <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
+        </Grid>
+        <!-- Окно списка транзакций -->
+        <Grid x:Name="TransactionFrame" Background="Gray" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90">
+                </RowDefinition>
+                <RowDefinition/>
+                <RowDefinition Height="45">
+                </RowDefinition>
+                <RowDefinition Height="50">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30">
+                </ColumnDefinition>
+                <ColumnDefinition>
+                </ColumnDefinition>
+                <ColumnDefinition Width="139">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- Список транзакций -->
+            <DataGrid x:Name="tableTransaction" Grid.Row="1" Grid.Column="1" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=Column1}" Width="*"/>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Path=Column2}" Width="*"/>
+                    <DataGridTextColumn Header="Сумма" Binding="{Binding Path=Column3}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Транзакции" FontSize="48" Grid.ColumnSpan="2" FontFamily="Palatino Linotype" FontWeight="Bold" Foreground="#FF424242" Grid.Column="1" Margin="0,0,3,0"/>
+            <!-- Стак панель для кнопок редактирования -->
+            <StackPanel x:Name="TransactionEditionsButton" Grid.Row="1" Visibility="Visible" Grid.Column="2" Orientation="Vertical" Margin="0,0,0,15">
+                <Button x:Name="addTransactionsButton" Style="{DynamicResource UserButton}" Content="Добавить" Margin="0,20,0,15" Click="addTransactionsButton_Click"/>
+                <Button x:Name="editTransactionsButton" Style="{DynamicResource UserButton}" Content="Изменить" Margin="0,20,0,15" Click="editTransactionsButton_Click"/>
+                <Button x:Name="deleteTransactionsButton" Style="{DynamicResource UserButton}" Content="Удалить" Margin="0,20,0,15" Click="deleteTransactionsButton_Click"/>
             </StackPanel>
             <Button Style="{DynamicResource FAQ}" Grid.Column="2" Grid.Row="3" Content="-&gt;" Background="#908C30" Width="25" Height="25" Click="backButton_Click" VerticalAlignment="Center"/>
         </Grid>

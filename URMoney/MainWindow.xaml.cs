@@ -29,7 +29,7 @@ namespace URMoney
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame, PeopleFrame, CategoryFrame };
+            speciallyFrames = new Grid[] { FrameTables, DepositFrame, CreditFrame, PercentFrame, VisualFrame, PeopleFrame, CategoryFrame, TransactionFrame };
             percentCheckBoxes = new CheckBox[] { percent0CheckBox, percent1CheckBox, percent2CheckBox, percent3CheckBox };
         }
         // при загрузке окна
@@ -45,6 +45,7 @@ namespace URMoney
             OutputDataGrid();
             OutputDataGridPeople();
             OutputDataGridCategory();
+            OutputDataGridTransaction();
         }
         // первоначальное добавление элементов, если их нет (без учета модуля валют)
         private void InitializeBD()
@@ -188,6 +189,14 @@ namespace URMoney
             foreach (var elem in elems)
                 items.Add(new DataItemCategory { Column1 = elem.Id, Column2 = elem.Title, Column3 = db.Types.Find(elem.TypeId).Title});
             tableCategory.ItemsSource = items;
+        }
+        private void OutputDataGridTransaction()
+        {
+            Transaction[] elems = db.Transactions.ToArray();
+            List<DataItemTransaction> items = new List<DataItemTransaction>();
+            foreach (var elem in elems)
+                items.Add(new DataItemTransaction { Column1 = elem.Id, Column2 = elem.Title, Column3 = elem.Total });
+            tableTransaction.ItemsSource = items;
         }
         // Таблицы Учёта
         private void tablesButton_Click(object sender, RoutedEventArgs e)
@@ -445,6 +454,70 @@ namespace URMoney
         private void categoryButton_Click(object sender, RoutedEventArgs e)
         {
             CategoryFrame.Visibility = Visibility.Visible;
+        }
+
+        private void transactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            TransactionFrame.Visibility = Visibility.Visible;
+        }
+
+        private void deleteTransactionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // получаем выделенный объект
+            DataItemTransaction? dataItem = tableTransaction.SelectedItem as DataItemTransaction;
+            // если ни одного объекта не выделено, выходим
+            if (dataItem is null) return;
+            Transaction transaction = db.Transactions.Find(dataItem.Column1);
+            db.Transactions.Remove(transaction);
+            db.SaveChanges();
+            OutputDataGridTransaction();
+        }
+
+        private void editTransactionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // получаем выделенный объект
+            DataItemTransaction? dataItem = tableTransaction.SelectedItem as DataItemTransaction;
+            // если ни одного объекта не выделено, выходим
+            if (dataItem is null) return;
+            AddTransactionWindow AddTransactionWindow = new AddTransactionWindow(dataItem);
+            if (AddTransactionWindow.ShowDialog() == true)
+            {
+                try
+                {
+                    // получаем измененный объект
+                    Transaction transaction = db.Transactions.Find(dataItem.Column1);
+                    if (transaction != null)
+                    {
+                        transaction.Title = AddTransactionWindow.output[0];
+                        transaction.Total = Math.Round(Convert.ToDecimal(AddTransactionWindow.output[1]), 2);
+                        db.SaveChanges();
+                        OutputDataGridTransaction();
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                }
+            }
+        }
+
+        private void addTransactionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddTransactionWindow AddTransactionWindow = new AddTransactionWindow(null);
+            if (AddTransactionWindow.ShowDialog() == true)
+            {
+                try
+                {
+                    Transaction Transaction = new Transaction { Title = AddTransactionWindow.output[0], Total = Math.Round(Convert.ToDecimal(AddTransactionWindow.output[1]), 2) };
+                    db.Transactions.Add(Transaction);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Пожалуйства заполните все поля корректными данными!");
+                }
+                OutputDataGridTransaction();
+            }
         }
     }
 }
