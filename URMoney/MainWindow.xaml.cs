@@ -110,7 +110,27 @@ namespace URMoney
         // выводим диаграммы
         private void InitializeVisual()
         {
-            // SELECT total FROM operations INNER JOIN transactions ON transactionid = id INNER JOIN categories ON categoryid = id INNER JOIN types ON typeid = id WHERE type.title = "доходы"
+            groupPlot.Plot.Clear();
+            piePlot.Plot.Clear();
+            List<Operation> incomes = db.Operations.FromSqlRaw("SELECT * FROM operations WHERE categoryid in (SELECT id FROM categories WHERE typeid = 1)").ToList();
+            decimal totalIncomes = 0;
+            foreach (var op in incomes)
+                totalIncomes += db.Transactions.Find(op.TransactionId).Total;
+            List<Operation> expenses = db.Operations.FromSqlRaw("SELECT * FROM operations WHERE categoryid in (SELECT id FROM categories WHERE typeid = 2)").ToList();
+            decimal totalExpenses = 0;
+            foreach (var op in expenses)
+                totalExpenses += db.Transactions.Find(op.TransactionId).Total;
+            groupPlot.Plot.AddBar(new double[] { Convert.ToDouble(totalIncomes), Convert.ToDouble(totalExpenses), Convert.ToDouble(totalIncomes - totalExpenses) });
+            groupPlot.Plot.XTicks(new double[] { 0, 1, 2 }, new string[] { "Доходы", "Расходы", "Остаток" });
+            groupPlot.Refresh();
+            var pie = piePlot.Plot.AddPie(new double[] { Convert.ToDouble(totalIncomes), Convert.ToDouble(totalExpenses) });
+            pie.Explode = true;
+            pie.DonutSize = 0.5;
+            pie.DonutLabel = $"{Math.Round(totalExpenses / totalIncomes * 100, 2)}%";
+            pie.ShowValues = true;
+            pie.SliceLabels = new string[] { "Доходы", "Расходы" };
+            piePlot.Plot.Legend();
+            piePlot.Refresh();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
