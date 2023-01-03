@@ -5,13 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:URMoney"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="450" Width="800">
+        Title="Справка" Height="350" Width="350">
     <Grid>
         <TabControl>
-            <TabItem Header="Таблицы учета">Первая вкладка</TabItem>
-            <TabItem Header="Расчеты">Вторая вкладка</TabItem>
-            <TabItem Header="Списки">Третья вкладка</TabItem>
-            <TabItem Header="О программе">Четвертая вкладка</TabItem>
+            <TabItem Header="Таблицы учета">
+                <TextBox x:Name="tablesText" FontSize="14" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
+            </TabItem>
+            <TabItem Header="Расчеты">
+                <TextBox x:Name="calcsText" FontSize="14" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
+            </TabItem>
+            <TabItem Header="Списки">
+                <TextBox x:Name="listsText" FontSize="14" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
+            </TabItem>
+            <TabItem Header="О программе">
+                <TextBox x:Name="programmText" FontSize="14" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
