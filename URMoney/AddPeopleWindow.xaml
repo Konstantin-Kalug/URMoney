@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:URMoney"
         mc:Ignorable="d"
-        Title="Настройка данных человека" Height="125" Width="250">
+        Title="Настройка данных человека" Height="125" Width="250" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="8" />
