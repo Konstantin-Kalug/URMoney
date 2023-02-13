@@ -127,7 +127,7 @@ namespace URMoney
             var pie = piePlot.Plot.AddPie(new double[] { Convert.ToDouble(totalIncomes), Convert.ToDouble(totalExpenses) });
             pie.Explode = true;
             pie.DonutSize = 0.5;
-            pie.DonutLabel = $"{Math.Round(totalExpenses / totalIncomes * 100, 2)}%";
+            pie.DonutLabel = $"{Math.Round(totalIncomes != 0 ? totalExpenses / totalIncomes * 100 : 100, 2)}%";
             pie.ShowValues = true;
             pie.SliceLabels = new string[] { "Доходы", "Расходы" };
             piePlot.Plot.Legend();
