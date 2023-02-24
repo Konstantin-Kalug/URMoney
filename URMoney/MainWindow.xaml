@@ -738,7 +738,7 @@
                             <TextBlock Text="Начальная валюта" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" FontStyle="Normal" Foreground="white"/>
                         </Border>
                         <Border Style="{DynamicResource Calc_TextBlock}">
-                            <TextBlock Text="Конечная валюта" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock Text="Конечная валюта" FontSize="14" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" FontStyle="Normal" Foreground="white"/>
                         </Border>
                     </StackPanel>
                 </StackPanel>
