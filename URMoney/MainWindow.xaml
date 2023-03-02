@@ -428,7 +428,7 @@
             </StackPanel>
             <!-- Лого с обводкой -->
             <Ellipse Style="{DynamicResource BorderLogo}" Grid.Column="1" Height="60" Width="60"/>
-            <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="60"/>
+            <Image Style="{DynamicResource logo1}" Grid.Column="1" Height="60" Source="/static/img/LOGO(URM).png"/>
             <!-- Стак панель для кнопок в левой части окна -->
             <StackPanel x:Name="elemsDBStackPanel" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
                 <Button x:Name="sibsiuButton" Style="{DynamicResource But_LefpPanel}" Click="sibsiuButton_Click">
